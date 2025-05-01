@@ -7,6 +7,7 @@ echo " 🔎 Subdomain Enumeration Framework "
 echo "============================================="
 echo -e "\e[0m"
 
+
 # -------------------- Dependency Check -------------------- #
 for cmd in subfinder assetfinder massdns httpx dnsgen dig; do
     command -v $cmd >/dev/null 2>&1 || { echo "[!] Missing: $cmd"; exit 1; }
