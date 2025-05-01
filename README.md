@@ -66,12 +66,11 @@ Script hỗ trợ quét nhiều domain đồng thời bằng cách chạy theo l
 
 ## 📦 Yêu cầu
 
-- `bash`
 - `subfinder`
 - `amass`
 - `assetfinder`
 - `massdns` (với `resolvers.txt`)
-- `httpx`
+- `httpx-toolkit`
 - `dnsgen`
 
 ---
