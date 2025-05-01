@@ -18,6 +18,7 @@ Tìm subdomain bằng cách kết hợp nhiều công cụ:
 - [`assetfinder`](https://github.com/tomnomnom/assetfinder)
 - [`amass`](https://github.com/owasp-amass)
 - curl [`crt.sh`](https://crt.sh/)
+  
 👉 Kết quả được gộp lại và lọc trùng.
 
 ---
