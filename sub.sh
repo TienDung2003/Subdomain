@@ -29,12 +29,16 @@ enum_domains_passive() {
     # amass passive
     amass enum -passive -norecursive -noalts -d "$domain" > "$folder/_amass.txt" 2>/dev/null
 
+    # crt.sh (curl method)
+    curl -s "https://crt.sh/?q=%25.$domain&output=json" | \
+        jq -r '.[].name_value' | sed 's/\\*\\.//g' | sort -u > "$folder/_crtsh.txt"
 
     # Gộp
-    cat "$folder/_subfinder.txt" "$folder/_assetfinder.txt" "$folder/_amass.txt" 2>/dev/null | \
+    cat "$folder/_subfinder.txt" "$folder/_assetfinder.txt" "$folder/_amass.txt" "$folder/_crtsh.txt" 2>/dev/null | \
         sed '/^$/d' | sort -u > "$folder/subdomainP.txt"
 
-    rm -f "$folder/_subfinder.txt" "$folder/_assetfinder.txt" "$folder/_amass.txt"
+    rm -f "$folder/_subfinder.txt" "$folder/_assetfinder.txt" "$folder/_amass.txt" "$folder/_crtsh.txt"
+   
 
     echo -e "\e[32m[PASSIVE]\e[0m Found \e[33m$(wc -l < "$folder/subdomainP.txt")\e[0m unique subdomains for \e[33m$domain\e[0m"
 }
@@ -98,7 +102,7 @@ probe_httpx() {
 
     httpx-toolkit -l "$input" -p 80,443,8080,8443 -silent -probe \
         -status-code -title -ip -cname  -tech-detect \
-        -timeout 10 -o "$output_all"
+        -timeout 10 -o "$output_all"  > /dev/null 2>&1
 
     grep -Ei '\[200\]|Login|Admin|API' "$output_all" > "$output_focus"
 
